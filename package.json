@@ -1,0 +1,23 @@
+{
+  "name": "cordova-plugin-gotenna",
+  "version": "0.0.0",
+  "description": "Cordova goTenna Plugin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dansteren/cordova-plugin-gotenna.git"
+  },
+  "keywords": [
+    "goTenna",
+    "cordova",
+    "plugin"
+  ],
+  "author": "Dan Steren <daniel.d.steren@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/dansteren/cordova-plugin-gotenna/issues"
+  },
+  "homepage": "https://github.com/dansteren/cordova-plugin-gotenna#readme"
+}
