@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" id="cordova-plugin-gotenna" version="0.0.0">
+    <name>goTenna</name>
+    <description>Cordova goTenna Plugin</description>
+    <license></license>
+    <keywords>cordova,goTenna</keywords>
+    <js-module src="www/dist/goTenna.bundle.js" name="goTenna">
+        <runs/>
+    </js-module>
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="GoTenna">
+                <param name="android-package" value="com.dansteren.goTenna.GoTennaPlugin"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/GoTennaPlugin.java" target-dir="src/com/dansteren/goTenna" />
+        <source-file src="src/android/Bluetooth.java" target-dir="src/com/dansteren/goTenna/Bluetooth" />
+        <framework src="src/android/config.gradle" custom="true" type="gradleReference" />
+        <resource-file src="src/android/gotenna-public-sdk.aar" target="libs/gotenna-public-sdk.aar" />
+    </platform>
+    <framework src="com.android.support:appcompat-v7:21+" />
+</plugin>

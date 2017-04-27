@@ -2,8 +2,21 @@
   "name": "cordova-plugin-gotenna",
   "version": "0.0.0",
   "description": "Cordova goTenna Plugin",
-  "main": "index.js",
+  "dependencies": {
+    "es6-promise": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/cordova": "^0.0.34",
+    "@types/es6-promise": "^0.0.32",
+    "ts-loader": "^2.0.3",
+    "tslint": "^5.1.0",
+    "tslint-eslint-rules": "^4.0.0",
+    "tslint-jsdoc-rules": "^0.1.2",
+    "typescript": "^2.2.2",
+    "webpack": "^2.4.1"
+  },
   "scripts": {
+    "start": "webpack -w",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,7 +28,8 @@
     "cordova",
     "plugin"
   ],
-  "author": "Dan Steren <daniel.d.steren@gmail.com>",
+  "author": "Dan Steren <daniel.d.steren@gmail.com> (https://github.com/dansteren)",
+  "license": "",
   "bugs": {
     "url": "https://github.com/dansteren/cordova-plugin-gotenna/issues"
   },
