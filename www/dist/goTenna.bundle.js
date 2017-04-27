@@ -160,6 +160,9 @@ exports.bluetoothAdapterManager = {
             cordova.exec(resolve, reject, 'GoTenna', 'getBluetoothStatus', []);
         });
     },
+    showRequestBluetoothPermissionDialog: function () {
+        cordova.exec(function () { }, function (error) { throw new Error(error); }, 'GoTenna', 'showRequestBluetoothPermissionDialog', []);
+    },
 };
 
 

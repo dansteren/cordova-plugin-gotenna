@@ -90,6 +90,9 @@ public class GoTennaPlugin extends CordovaPlugin {
         } else if ("getBluetoothStatus".equals(action)) {
             Bluetooth.getBluetoothStatus(callbackContext);
             return true;
+        } else if ("showRequestBluetoothPermissionDialog".equals(action)) {
+            Bluetooth.showRequestBluetoothPermissionDialog(this.cordova.getActivity(), callbackContext);
+            return true;
         }
         return false; // Returning false results in a "MethodNotFound" error.
     }

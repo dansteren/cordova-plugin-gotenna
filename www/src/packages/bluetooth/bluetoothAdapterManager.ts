@@ -24,4 +24,10 @@ export const bluetoothAdapterManager = {
       cordova.exec(resolve, reject, 'GoTenna', 'getBluetoothStatus', []);
     });
   },
+  showRequestBluetoothPermissionDialog: () => {
+    cordova.exec(
+      () => { },
+      (error) => { throw new Error(error); },
+      'GoTenna', 'showRequestBluetoothPermissionDialog', []);
+  },
 };
