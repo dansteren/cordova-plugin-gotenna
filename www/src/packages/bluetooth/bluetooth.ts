@@ -1,7 +1,7 @@
-import { bluetoothAdapterManager } from './bluetoothAdapterManager';
-import { gTConnectionManager } from './gTConnectionManager';
+import { BluetoothAdapterManager } from './BluetoothAdapterManager';
+import { GTConnectionManager } from './GTConnectionManager';
 
 export const bluetoothPackage = {
-  BluetoothAdapterManager: bluetoothAdapterManager,
-  GTConnectionManager: gTConnectionManager,
+  BluetoothAdapterManager,
+  GTConnectionManager,
 };

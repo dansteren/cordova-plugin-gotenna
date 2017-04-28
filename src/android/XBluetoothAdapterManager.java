@@ -6,7 +6,7 @@ import com.gotenna.sdk.bluetooth.BluetoothAdapterManager;
 
 import org.apache.cordova.CallbackContext;
 
-public class Bluetooth {
+public class XBluetoothAdapterManager {
 
     public static void bluetoothIsEnabled(CallbackContext callbackContext){
          // TODO: find a way to return a boolean
@@ -20,8 +20,8 @@ public class Bluetooth {
 
     public static void deviceSupportsBluetooth(CallbackContext callbackContext){
          // TODO: find a way to return a boolean
-        boolean enabled = BluetoothAdapterManager.getInstance().deviceSupportsBluetooth();
-        if (enabled) {
+        boolean supported = BluetoothAdapterManager.getInstance().deviceSupportsBluetooth();
+        if (supported) {
             callbackContext.success("true");
         } else {
             callbackContext.success("false");

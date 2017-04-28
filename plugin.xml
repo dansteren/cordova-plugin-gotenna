@@ -14,7 +14,8 @@
             </feature>
         </config-file>
         <source-file src="src/android/GoTennaPlugin.java" target-dir="src/com/dansteren/goTenna" />
-        <source-file src="src/android/Bluetooth.java" target-dir="src/com/dansteren/goTenna/Bluetooth" />
+        <source-file src="src/android/XBluetoothAdapterManager.java" target-dir="src/com/dansteren/goTenna/XBluetoothAdapterManager" />
+        <source-file src="src/android/XGTConnectionManager.java" target-dir="src/com/dansteren/goTenna/XGTConnectionManager" />
         <framework src="src/android/config.gradle" custom="true" type="gradleReference" />
         <resource-file src="src/android/gotenna-public-sdk.aar" target="libs/gotenna-public-sdk.aar" />
     </platform>

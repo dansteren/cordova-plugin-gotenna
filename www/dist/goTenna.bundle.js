@@ -76,7 +76,7 @@ function __export(m) {
     for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
 }
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(2));
+__export(__webpack_require__(4));
 
 
 /***/ }),
@@ -122,22 +122,7 @@ window.goTenna = GoTenna;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var bluetoothAdapterManager_1 = __webpack_require__(3);
-var gTConnectionManager_1 = __webpack_require__(4);
-exports.bluetoothPackage = {
-    BluetoothAdapterManager: bluetoothAdapterManager_1.bluetoothAdapterManager,
-    GTConnectionManager: gTConnectionManager_1.gTConnectionManager,
-};
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.bluetoothAdapterManager = {
+exports.BluetoothAdapterManager = {
     bluetoothIsEnabled: function () {
         return new Promise(function (resolve, reject) {
             cordova.exec(function (result) {
@@ -167,13 +152,60 @@ exports.bluetoothAdapterManager = {
 
 
 /***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GTConnectionManager = {
+    clearConnectedGotennaAddress: function () {
+        cordova.exec(function () { }, function (error) { throw new Error(error); }, 'GoTenna', 'clearConnectedGotennaAddress', []);
+    },
+    disconnect: function () {
+        cordova.exec(function () { }, function (error) { throw new Error(error); }, 'GoTenna', 'disconnect', []);
+    },
+    disconnectWithRetry: function () {
+        cordova.exec(function () { }, function (error) { throw new Error(error); }, 'GoTenna', 'disconnect', []);
+    },
+    getConnectedGotennaAddress: function () {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(resolve, reject, 'GoTenna', 'getConnectedGotennaAddress', []);
+        });
+    },
+    getGtConnectionState: function () {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(resolve, reject, 'GoTenna', 'getGtConnectionState', []);
+        });
+    },
+    isConnected: function () {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(function (result) {
+                result === 'true' ? resolve(true) : resolve(false);
+            }, reject, 'GoTenna', 'isConnected', []);
+        });
+    },
+    stopScan: function () {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(resolve, reject, 'GoTenna', 'stopScan', []);
+        });
+    },
+};
+
+
+/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.gTConnectionManager = {};
+var BluetoothAdapterManager_1 = __webpack_require__(2);
+var GTConnectionManager_1 = __webpack_require__(3);
+exports.bluetoothPackage = {
+    BluetoothAdapterManager: BluetoothAdapterManager_1.BluetoothAdapterManager,
+    GTConnectionManager: GTConnectionManager_1.GTConnectionManager,
+};
 
 
 /***/ })

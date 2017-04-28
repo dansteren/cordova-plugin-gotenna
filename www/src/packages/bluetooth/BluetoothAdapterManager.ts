@@ -1,4 +1,4 @@
-export const bluetoothAdapterManager = {
+export const BluetoothAdapterManager = {
   bluetoothIsEnabled: () => {
     return new Promise((resolve, reject) => {
       cordova.exec((result) => {
