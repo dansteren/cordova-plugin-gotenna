@@ -159,6 +159,12 @@ exports.BluetoothAdapterManager = {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GTConnectionManager = {
+    addGtConnectionListener: function (callback) {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(callback, reject, 'GoTenna', 'addGtConnectionListener', []);
+            resolve();
+        });
+    },
     clearConnectedGotennaAddress: function () {
         cordova.exec(function () { }, function (error) { throw new Error(error); }, 'GoTenna', 'clearConnectedGotennaAddress', []);
     },
@@ -183,6 +189,11 @@ exports.GTConnectionManager = {
             cordova.exec(function (result) {
                 result === 'true' ? resolve(true) : resolve(false);
             }, reject, 'GoTenna', 'isConnected', []);
+        });
+    },
+    scanAndConnect: function () {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(resolve, reject, 'GoTenna', 'scanAndConnect', []);
         });
     },
     stopScan: function () {

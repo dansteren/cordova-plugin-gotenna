@@ -13,9 +13,12 @@ import org.json.JSONException;
 
 public class GoTennaPlugin extends CordovaPlugin {
 
+    public XGTConnectionManager xgtConnectionManager;
+
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
+        this.xgtConnectionManager = new XGTConnectionManager();
     }
 
     public void getApplicationBuildId(CallbackContext callbackContext){
@@ -94,25 +97,31 @@ public class GoTennaPlugin extends CordovaPlugin {
             XBluetoothAdapterManager.showRequestBluetoothPermissionDialog(this.cordova.getActivity(), callbackContext);
             return true;
         } else if ("clearConnectedGotennaAddress".equals(action)) {
-            XGTConnectionManager.clearConnectedGotennaAddress(callbackContext);
+            xgtConnectionManager.clearConnectedGotennaAddress(callbackContext);
             return true;
-        } else if ("getConnectedGotennaAddress".equals(action)) {
-            XGTConnectionManager.getConnectedGotennaAddress(callbackContext);
+        } else if ("addGtConnectionListener".equals(action)) {
+            xgtConnectionManager.addGtConnectionListener(callbackContext);
             return true;
         } else if ("disconnect".equals(action)) {
-            XGTConnectionManager.disconnect(callbackContext);
+            xgtConnectionManager.disconnect(callbackContext);
             return true;
         } else if ("disconnectWithRetry".equals(action)) {
-            XGTConnectionManager.disconnectWithRetry(callbackContext);
+            xgtConnectionManager.disconnectWithRetry(callbackContext);
+            return true;
+        } else if ("getConnectedGotennaAddress".equals(action)) {
+            xgtConnectionManager.getConnectedGotennaAddress(callbackContext);
             return true;
         } else if ("getGtConnectionState".equals(action)) {
-            XGTConnectionManager.getGtConnectionState(callbackContext);
+            xgtConnectionManager.getGtConnectionState(callbackContext);
             return true;
         } else if ("isConnected".equals(action)) {
-            XGTConnectionManager.isConnected(callbackContext);
+            xgtConnectionManager.isConnected(callbackContext);
+            return true;
+        } else if ("scanAndConnect".equals(action)) {
+            xgtConnectionManager.scanAndConnect(callbackContext);
             return true;
         } else if ("stopScan".equals(action)) {
-            XGTConnectionManager.stopScan(callbackContext);
+            xgtConnectionManager.stopScan(callbackContext);
             return true;
         }
         return false; // Returning false results in a "MethodNotFound" error.

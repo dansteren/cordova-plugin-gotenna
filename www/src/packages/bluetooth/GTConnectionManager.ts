@@ -1,4 +1,10 @@
 export const GTConnectionManager = {
+  addGtConnectionListener: (callback) => {
+    return new Promise((resolve, reject) => {
+      cordova.exec(callback, reject, 'GoTenna', 'addGtConnectionListener', []);
+      resolve();
+    });
+  },
   clearConnectedGotennaAddress: () => {
     cordova.exec(
       () => { },
@@ -32,6 +38,11 @@ export const GTConnectionManager = {
       cordova.exec((result) => {
         result === 'true' ? resolve(true) : resolve(false);
       }, reject, 'GoTenna', 'isConnected', []);
+    });
+  },
+  scanAndConnect: () => {
+    return new Promise((resolve, reject) => {
+      cordova.exec(resolve, reject, 'GoTenna', 'scanAndConnect', []);
     });
   },
   stopScan: () => {
