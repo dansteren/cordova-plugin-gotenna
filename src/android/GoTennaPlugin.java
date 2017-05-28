@@ -3,15 +3,25 @@ package com.dansteren.goTenna;
 import com.gotenna.sdk.exceptions.GTInvalidAppTokenException;
 import com.gotenna.sdk.GoTenna;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 public class GoTennaPlugin extends CordovaPlugin {
+
+    public static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    public static final int COARSE_LOCATION_REQ_CODE = 0;
+    public static final int FINE_LOCATION_REQ_CODE = 1;
+
+    public CallbackContext callbackContext;
 
     public XGTConnectionManager xgtConnectionManager;
 
@@ -56,6 +66,10 @@ public class GoTennaPlugin extends CordovaPlugin {
         } else {
             callbackContext.success("false");
         }
+    }
+
+    protected void getCoarseLocationPermission() {
+        cordova.requestPermission(this, COARSE_LOCATION_REQ_CODE, COARSE_LOCATION);
     }
 
     /**
@@ -118,12 +132,34 @@ public class GoTennaPlugin extends CordovaPlugin {
             xgtConnectionManager.isConnected(callbackContext);
             return true;
         } else if ("scanAndConnect".equals(action)) {
-            xgtConnectionManager.scanAndConnect(callbackContext);
+            if(cordova.hasPermission(COARSE_LOCATION)) {
+                xgtConnectionManager.scanAndConnect(callbackContext);
+            } else {
+                this.callbackContext = callbackContext;
+                getCoarseLocationPermission();
+            }
             return true;
         } else if ("stopScan".equals(action)) {
             xgtConnectionManager.stopScan(callbackContext);
             return true;
         }
         return false; // Returning false results in a "MethodNotFound" error.
+    }
+
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
+        for(int r:grantResults) {
+            if(r == PackageManager.PERMISSION_DENIED) {
+                this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Permission Denied"));
+                return;
+            }
+        }
+        switch(requestCode) {
+            case COARSE_LOCATION_REQ_CODE:
+                xgtConnectionManager.scanAndConnect(this.callbackContext);
+                break;
+            case FINE_LOCATION_REQ_CODE:
+                xgtConnectionManager.scanAndConnect(this.callbackContext);
+                break;
+        }
     }
 }
