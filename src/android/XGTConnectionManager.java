@@ -5,6 +5,7 @@ import com.gotenna.sdk.bluetooth.GTConnectionManager.GTConnectionListener;
 import com.gotenna.sdk.bluetooth.GTConnectionManager.GTConnectionState;
 
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.PluginResult;
 
 public class XGTConnectionManager implements GTConnectionListener {
 
@@ -51,7 +52,9 @@ public class XGTConnectionManager implements GTConnectionListener {
 
     public void scanAndConnect(CallbackContext callbackContext){
         GTConnectionManager.getInstance().scanAndConnect();
-        callbackContext.success();
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+        pluginResult.setKeepCallback(true);
+        callbackContext.sendPluginResult(pluginResult);
     }
 
     public void stopScan(CallbackContext callbackContext){
@@ -62,6 +65,8 @@ public class XGTConnectionManager implements GTConnectionListener {
     @Override
     public void onConnectionStateUpdated(GTConnectionState gtConnectionState)
     {
-        this.callbackContext.success(gtConnectionState.toString());
+        PluginResult result = new PluginResult(PluginResult.Status.OK, gtConnectionState.toString());
+        result.setKeepCallback(true);
+        this.callbackContext.sendPluginResult(result);
     }
 }
