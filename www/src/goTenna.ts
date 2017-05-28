@@ -1,4 +1,5 @@
 import { bluetoothPackage } from './packages';
+import { commandsPackage } from './packages';
 
 const GoTenna = {
   getApplicationBuildId: () => {
@@ -27,6 +28,7 @@ const GoTenna = {
     });
   },
   bluetooth: bluetoothPackage,
+  commands: commandsPackage,
 };
 
 (window as any).goTenna = GoTenna;

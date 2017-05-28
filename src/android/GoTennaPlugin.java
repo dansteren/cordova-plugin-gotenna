@@ -24,11 +24,13 @@ public class GoTennaPlugin extends CordovaPlugin {
     public CallbackContext callbackContext;
 
     public XGTConnectionManager xgtConnectionManager;
+    public XGTCommandCenter xgtCommandCenter;
 
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
         this.xgtConnectionManager = new XGTConnectionManager();
+        this.xgtCommandCenter = new XGTCommandCenter();
     }
 
     public void getApplicationBuildId(CallbackContext callbackContext){
@@ -141,6 +143,11 @@ public class GoTennaPlugin extends CordovaPlugin {
             return true;
         } else if ("stopScan".equals(action)) {
             xgtConnectionManager.stopScan(callbackContext);
+            return true;
+        } else if ("setGoTennaGID".equals(action)) {
+            long gid = args.getLong(0);
+            String username = args.getString(1);
+            xgtCommandCenter.setGoTennaGID(callbackContext, gid, username);
             return true;
         }
         return false; // Returning false results in a "MethodNotFound" error.

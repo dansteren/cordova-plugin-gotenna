@@ -77,6 +77,7 @@ function __export(m) {
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(__webpack_require__(4));
+__export(__webpack_require__(6));
 
 
 /***/ }),
@@ -87,6 +88,7 @@ __export(__webpack_require__(4));
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var packages_1 = __webpack_require__(0);
+var packages_2 = __webpack_require__(0);
 var GoTenna = {
     getApplicationBuildId: function () {
         return new Promise(function (resolve, reject) {
@@ -111,6 +113,7 @@ var GoTenna = {
         });
     },
     bluetooth: packages_1.bluetoothPackage,
+    commands: packages_2.commandsPackage,
 };
 window.goTenna = GoTenna;
 
@@ -216,6 +219,35 @@ var GTConnectionManager_1 = __webpack_require__(3);
 exports.bluetoothPackage = {
     BluetoothAdapterManager: BluetoothAdapterManager_1.BluetoothAdapterManager,
     GTConnectionManager: GTConnectionManager_1.GTConnectionManager,
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GTCommandCenter = {
+    setGoTennaGID: function (gid, username) {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(resolve, reject, 'GoTenna', 'setGoTennaGID', [gid, username]);
+        });
+    },
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var GTCommandCenter_1 = __webpack_require__(5);
+exports.commandsPackage = {
+    GTCommandCenter: GTCommandCenter_1.GTCommandCenter,
 };
 
 
