@@ -17,6 +17,7 @@
         <source-file src="src/android/XBluetoothAdapterManager.java" target-dir="src/com/dansteren/goTenna/XBluetoothAdapterManager" />
         <source-file src="src/android/XGTConnectionManager.java" target-dir="src/com/dansteren/goTenna/XGTConnectionManager" />
         <source-file src="src/android/XGTCommandCenter.java" target-dir="src/com/dansteren/goTenna/XGTCommandCenter" />
+        <source-file src="src/android/Message.java" target-dir="src/com/dansteren/goTenna/Message" />
         <framework src="src/android/config.gradle" custom="true" type="gradleReference" />
         <resource-file src="src/android/gotenna-public-sdk.aar" target="libs/gotenna-public-sdk.aar" />
     </platform>
