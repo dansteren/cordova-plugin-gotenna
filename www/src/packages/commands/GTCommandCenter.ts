@@ -10,4 +10,10 @@ export const GTCommandCenter = {
                    [outgoingData, receiverGID, willEncrypt]);
     });
   },
+  setMessageListener: (callback: (messageData: any) => void) => {
+    return new Promise((resolve, reject) => {
+      cordova.exec(callback, reject, 'GoTenna', 'setMessageListener', []);
+      resolve();
+    });
+  },
 };

@@ -240,6 +240,12 @@ exports.GTCommandCenter = {
             cordova.exec(resolve, reject, 'GoTenna', 'sendMessage', [outgoingData, receiverGID, willEncrypt]);
         });
     },
+    setMessageListener: function (callback) {
+        return new Promise(function (resolve, reject) {
+            cordova.exec(callback, reject, 'GoTenna', 'setMessageListener', []);
+            resolve();
+        });
+    },
 };
 
 

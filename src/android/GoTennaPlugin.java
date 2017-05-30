@@ -155,6 +155,9 @@ public class GoTennaPlugin extends CordovaPlugin {
             boolean willEncrypt = args.getBoolean(2);
             xgtCommandCenter.sendMessage(callbackContext, outgoingData, receiverGID, willEncrypt);
             return true;
+        } else if ("setMessageListener".equals(action)) {
+            xgtCommandCenter.setMessageListener(callbackContext);
+            return true;
         }
         return false; // Returning false results in a "MethodNotFound" error.
     }
