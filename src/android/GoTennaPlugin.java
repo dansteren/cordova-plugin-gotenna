@@ -1,4 +1,4 @@
-package com.dansteren.goTenna;
+package com.dansteren.gotenna;
 
 import com.gotenna.sdk.exceptions.GTInvalidAppTokenException;
 import com.gotenna.sdk.GoTenna;
@@ -12,11 +12,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class GoTennaPlugin extends CordovaPlugin {
-
-    @Override
-    public void initialize(CordovaInterface cordova, CordovaWebView webView) {
-        super.initialize(cordova, webView);
-    }
 
     public void getApplicationBuildId(CallbackContext callbackContext){
         callbackContext.success(GoTenna.getApplicationBuildId());
