@@ -1,4 +1,4 @@
-package com.dansteren.goTenna;
+package com.dansteren.gotenna;
 
 import android.app.Activity;
 

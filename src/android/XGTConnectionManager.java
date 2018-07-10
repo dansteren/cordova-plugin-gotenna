@@ -1,4 +1,4 @@
-package com.dansteren.goTenna;
+package com.dansteren.gotenna;
 
 import com.gotenna.sdk.bluetooth.GTConnectionManager;
 import com.gotenna.sdk.bluetooth.GTConnectionManager.GTConnectionListener;

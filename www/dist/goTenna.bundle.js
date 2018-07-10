@@ -103,7 +103,7 @@ var GoTenna = {
         });
     },
     setApplicationToken: function (token) {
-        cordova.exec(function (result) { console.log('goTenna: Application Token set'); }, function (error) { console.error('goTenna: ' + error); }, 'GoTenna', 'setApplicationToken', [token]);
+        cordova.exec(function (result) { console.log('goTenna: Application Token set'); }, function (error) { console.error('goTenna: Invalid goTenna App Token'); }, 'GoTenna', 'setApplicationToken', [token]);
     },
     tokenIsVerified: function () {
         return new Promise(function (resolve, reject) {

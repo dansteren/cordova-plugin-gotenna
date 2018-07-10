@@ -1,4 +1,4 @@
-package com.dansteren.goTenna;
+package com.dansteren.gotenna;
 
 import com.gotenna.sdk.exceptions.GTInvalidAppTokenException;
 import com.gotenna.sdk.GoTenna;

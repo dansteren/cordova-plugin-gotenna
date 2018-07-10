@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-gotenna",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Cordova goTenna Plugin",
   "dependencies": {
     "es6-promise": "^4.1.0"
@@ -24,6 +24,8 @@
     "url": "git+https://github.com/dansteren/cordova-plugin-gotenna.git"
   },
   "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
     "goTenna",
     "cordova",
     "plugin"

@@ -17,7 +17,7 @@ const GoTenna = {
   setApplicationToken: (token) => {
     cordova.exec(
       (result) => { console.log('goTenna: Application Token set'); },
-      (error) => { console.error('goTenna: ' + error); },
+      (error) => { console.error('goTenna: Invalid goTenna App Token'); },
       'GoTenna', 'setApplicationToken', [token]);
   },
   tokenIsVerified: () => {
