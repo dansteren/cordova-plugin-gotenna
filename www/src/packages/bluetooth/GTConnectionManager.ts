@@ -40,9 +40,9 @@ export const GTConnectionManager = {
       }, reject, 'GoTenna', 'isConnected', []);
     });
   },
-  scanAndConnect: () => {
+  scanAndConnect: (deviceType: 'V1' | 'MESH') => {
     return new Promise((resolve, reject) => {
-      cordova.exec(resolve, reject, 'GoTenna', 'scanAndConnect', []);
+      cordova.exec(resolve, reject, 'GoTenna', 'scanAndConnect', [deviceType]);
     });
   },
   stopScan: () => {

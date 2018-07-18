@@ -3,6 +3,7 @@ package com.dansteren.gotenna;
 import com.gotenna.sdk.bluetooth.GTConnectionManager;
 import com.gotenna.sdk.bluetooth.GTConnectionManager.GTConnectionListener;
 import com.gotenna.sdk.bluetooth.GTConnectionManager.GTConnectionState;
+import com.gotenna.sdk.bluetooth.GTConnectionManager.GTDeviceType;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.PluginResult;
@@ -52,6 +53,13 @@ public class XGTConnectionManager implements GTConnectionListener {
 
     public void scanAndConnect(CallbackContext callbackContext){
         GTConnectionManager.getInstance().scanAndConnect();
+        PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
+        pluginResult.setKeepCallback(true);
+        callbackContext.sendPluginResult(pluginResult);
+    }
+
+    public void scanAndConnect(CallbackContext callbackContext, GTConnectionManager.GTDeviceType deviceType){
+        GTConnectionManager.getInstance().scanAndConnect(deviceType);
         PluginResult pluginResult = new PluginResult(PluginResult.Status.NO_RESULT);
         pluginResult.setKeepCallback(true);
         callbackContext.sendPluginResult(pluginResult);

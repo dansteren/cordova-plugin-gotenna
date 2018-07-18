@@ -194,9 +194,9 @@ exports.GTConnectionManager = {
             }, reject, 'GoTenna', 'isConnected', []);
         });
     },
-    scanAndConnect: function () {
+    scanAndConnect: function (deviceType) {
         return new Promise(function (resolve, reject) {
-            cordova.exec(resolve, reject, 'GoTenna', 'scanAndConnect', []);
+            cordova.exec(resolve, reject, 'GoTenna', 'scanAndConnect', [deviceType]);
         });
     },
     stopScan: function () {

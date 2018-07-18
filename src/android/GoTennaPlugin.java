@@ -1,5 +1,6 @@
 package com.dansteren.gotenna;
 
+import com.gotenna.sdk.bluetooth.GTConnectionManager.GTDeviceType;
 import com.gotenna.sdk.exceptions.GTInvalidAppTokenException;
 import com.gotenna.sdk.GoTenna;
 
@@ -135,7 +136,13 @@ public class GoTennaPlugin extends CordovaPlugin {
             return true;
         } else if ("scanAndConnect".equals(action)) {
             if(cordova.hasPermission(COARSE_LOCATION)) {
-                xgtConnectionManager.scanAndConnect(callbackContext);
+                if(args.isNull(0)){
+                    xgtConnectionManager.scanAndConnect(callbackContext);
+                } else {
+                    String deviceTypeString = args.getString(0);
+                    GTDeviceType deviceType = GTDeviceType.valueOf(deviceTypeString);
+                    xgtConnectionManager.scanAndConnect(callbackContext, deviceType);
+                }
             } else {
                 this.callbackContext = callbackContext;
                 getCoarseLocationPermission();
