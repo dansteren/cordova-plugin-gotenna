@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-gotenna",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Cordova goTenna Plugin",
   "dependencies": {
     "es6-promise": "^4.1.0",
