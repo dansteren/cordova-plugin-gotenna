@@ -4,7 +4,7 @@
     <description>Cordova goTenna Plugin</description>
     <license></license>
     <keywords>cordova,goTenna</keywords>
-    <js-module src="www/dist/goTenna.bundle.js" name="goTenna">
+    <js-module src="www/goTenna.bundle.js" name="goTenna">
         <runs/>
     </js-module>
     <platform name="android">

@@ -1,19 +1,29 @@
 var path = require('path');
 
 module.exports = {
-    entry: './www/src/goTenna.ts',
-    output: {
-        path: path.resolve(__dirname, 'www/dist/'),
-        filename: 'goTenna.bundle.js'
-    },
-    resolve: {
-        extensions: ['.ts']
-    },
-    module: {
-        rules: [
-            {
-                test: /\.ts$/, use: 'ts-loader',
-            }
-        ],
-    },
-}
+  mode: 'production',
+  entry: './www/goTenna.ts',
+  output: {
+    path: path.resolve(__dirname, 'www/'),
+    filename: 'goTenna.bundle.js'
+  },
+  resolve: {
+    extensions: ['.ts']
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        options: {
+          typeCheck: true
+        }
+      },
+      {
+        test: /\.ts$/,
+        loader: 'ts-loader'
+      }
+    ]
+  }
+};

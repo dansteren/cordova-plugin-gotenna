@@ -3,21 +3,29 @@
   "version": "0.0.1",
   "description": "Cordova goTenna Plugin",
   "dependencies": {
-    "es6-promise": "^4.1.0"
+    "es6-promise": "^4.1.0",
+    "typescript": "^2.9.2"
   },
   "devDependencies": {
-    "@types/cordova": "^0.0.34",
-    "@types/es6-promise": "^0.0.32",
-    "ts-loader": "^2.0.3",
-    "tslint": "^5.1.0",
-    "tslint-eslint-rules": "^4.0.0",
+    "@types/cordova": "0.0.34",
+    "@types/es6-promise": "0.0.32",
+    "husky": "^0.14.3",
+    "prettier": "1.13.7",
+    "pretty-quick": "^1.6.0",
+    "ts-loader": "^4.4.2",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.13.0",
+    "tslint-eslint-rules": "^5.3.1",
     "tslint-jsdoc-rules": "^0.1.2",
-    "typescript": "^2.2.2",
-    "webpack": "^2.4.1"
+    "tslint-loader": "^3.6.0",
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.1.0"
   },
   "scripts": {
     "start": "webpack -w",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "tslint --fix 'www/**/*.ts'",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "pretty-quick --staged"
   },
   "repository": {
     "type": "git",
