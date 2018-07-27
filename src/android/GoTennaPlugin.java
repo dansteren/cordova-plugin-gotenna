@@ -34,12 +34,22 @@ public class GoTennaPlugin extends CordovaPlugin {
         this.xgtCommandCenter = new XGTCommandCenter();
     }
 
-    public void getApplicationBuildId(CallbackContext callbackContext){
+    public void getApplicationBuildId(CallbackContext callbackContext) {
         callbackContext.success(GoTenna.getApplicationBuildId());
     }
 
-    public void isInDebugMode(CallbackContext callbackContext){
-         // TODO: find a way to return a boolean
+    public void hasSuperToken(CallbackContext callbackContext) {
+        // TODO: find a way to return a boolean
+        boolean hasSuperToken = GoTenna.hasSuperToken();
+        if (hasSuperToken) {
+            callbackContext.success("true");
+        } else {
+            callbackContext.success("false");
+        }
+    }
+
+    public void isInDebugMode(CallbackContext callbackContext) {
+        // TODO: find a way to return a boolean
         boolean inDebugMode = GoTenna.isInDebugMode();
         if (inDebugMode) {
             callbackContext.success("true");
@@ -48,21 +58,18 @@ public class GoTennaPlugin extends CordovaPlugin {
         }
     }
 
-    public void setApplicationToken(String token, CallbackContext callbackContext){
-        try
-        {
+    public void setApplicationToken(String token, CallbackContext callbackContext) {
+        try {
             GoTenna.setApplicationToken(this.cordova.getActivity().getApplicationContext(), token);
             callbackContext.success("Success");
-        }
-        catch (GTInvalidAppTokenException e)
-        {
+        } catch (GTInvalidAppTokenException e) {
             // Normally, this will never happen
             callbackContext.error("Invalid goTenna App Token");
         }
     }
 
-    public void tokenIsVerified(CallbackContext callbackContext){
-         // TODO: find a way to return a boolean
+    public void tokenIsVerified(CallbackContext callbackContext) {
+        // TODO: find a way to return a boolean
         boolean verified = GoTenna.tokenIsVerified();
         if (verified) {
             callbackContext.success("true");
@@ -78,18 +85,21 @@ public class GoTennaPlugin extends CordovaPlugin {
     /**
      * Executes the request and returns PluginResult.
      *
-     * @param action            The action to execute.
-     * @param args              JSONArray of arguments for the plugin.
-     * @param callbackContext   The callback context used when calling back into JavaScript.
-     * @return                  True if the action was valid, false otherwise.
+     * @param action          The action to execute.
+     * @param args            JSONArray of arguments for the plugin.
+     * @param callbackContext The callback context used when calling back into
+     *                        JavaScript.
+     * @return True if the action was valid, false otherwise.
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         if ("getApplicationBuildId".equals(action)) {
             this.getApplicationBuildId(callbackContext);
             return true;
+        } else if ("hasSuperToken".equals(action)) {
+            this.hasSuperToken(callbackContext);
+            return true;
         } else if ("isInDebugMode".equals(action)) {
-            String token = args.getString(0);
-            this.setApplicationToken(token, callbackContext);
+            this.isInDebugMode(callbackContext);
             return true;
         } else if ("setApplicationToken".equals(action)) {
             String token = args.getString(0);
@@ -135,8 +145,8 @@ public class GoTennaPlugin extends CordovaPlugin {
             xgtConnectionManager.isConnected(callbackContext);
             return true;
         } else if ("scanAndConnect".equals(action)) {
-            if(cordova.hasPermission(COARSE_LOCATION)) {
-                if(args.isNull(0)){
+            if (cordova.hasPermission(COARSE_LOCATION)) {
+                if (args.isNull(0)) {
                     xgtConnectionManager.scanAndConnect(callbackContext);
                 } else {
                     String deviceTypeString = args.getString(0);
@@ -169,20 +179,21 @@ public class GoTennaPlugin extends CordovaPlugin {
         return false; // Returning false results in a "MethodNotFound" error.
     }
 
-    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults) throws JSONException {
-        for(int r:grantResults) {
-            if(r == PackageManager.PERMISSION_DENIED) {
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults)
+            throws JSONException {
+        for (int r : grantResults) {
+            if (r == PackageManager.PERMISSION_DENIED) {
                 this.callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR, "Permission Denied"));
                 return;
             }
         }
-        switch(requestCode) {
-            case COARSE_LOCATION_REQ_CODE:
-                xgtConnectionManager.scanAndConnect(this.callbackContext);
-                break;
-            case FINE_LOCATION_REQ_CODE:
-                xgtConnectionManager.scanAndConnect(this.callbackContext);
-                break;
+        switch (requestCode) {
+        case COARSE_LOCATION_REQ_CODE:
+            xgtConnectionManager.scanAndConnect(this.callbackContext);
+            break;
+        case FINE_LOCATION_REQ_CODE:
+            xgtConnectionManager.scanAndConnect(this.callbackContext);
+            break;
         }
     }
 }

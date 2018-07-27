@@ -4,11 +4,35 @@ enum ConnectionState {
   Scanning = 'SCANNING'
 }
 
+enum BluetoothStatus {
+  NotSupported = 'NOT_SUPPORTED',
+  SupportedAndEnabled = 'SUPPORTED_AND_ENABLED',
+  SupportedNotEnabled = 'SUPPORTED_NOT_ENABLED'
+}
+
+enum DeviceType {
+  V1 = 'V1',
+  Mesh = 'MESH'
+}
+
 class GoTenna {
   //#region goTenna
   public getApplicationBuildId() {
     return new Promise((resolve, reject) => {
       cordova.exec(resolve, reject, 'GoTenna', 'getApplicationBuildId', []);
+    });
+  }
+  public hasSuperToken() {
+    return new Promise((resolve, reject) => {
+      cordova.exec(
+        result => {
+          result === 'true' ? resolve(true) : resolve(false);
+        },
+        reject,
+        'GoTenna',
+        'hasSuperToken',
+        []
+      );
     });
   }
   public isInDebugMode() {
@@ -91,9 +115,11 @@ class GoTenna {
     );
   }
   public getBluetoothStatus() {
-    return new Promise((resolve, reject) => {
-      cordova.exec(resolve, reject, 'GoTenna', 'getBluetoothStatus', []);
-    });
+    return new Promise(
+      (resolve: (bluetoothStatus: BluetoothStatus) => any, reject) => {
+        cordova.exec(resolve, reject, 'GoTenna', 'getBluetoothStatus', []);
+      }
+    );
   }
   public showRequestBluetoothPermissionDialog() {
     cordova.exec(
@@ -179,7 +205,7 @@ class GoTenna {
       );
     });
   }
-  public scanAndConnect(deviceType?: 'V1' | 'MESH') {
+  public scanAndConnect(deviceType?: DeviceType) {
     return new Promise((resolve, reject) => {
       cordova.exec(resolve, reject, 'GoTenna', 'scanAndConnect', [deviceType]);
     });
