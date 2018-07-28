@@ -15,6 +15,18 @@ enum DeviceType {
   Mesh = 'MESH'
 }
 
+interface IUser {
+  gid: number;
+  kGroupGIDs: number[];
+  kMulticastGroupGIDs: number[];
+  lastConnectedTime: number;
+  latitude: number;
+  locationAccuracy: number;
+  locationTimestamp: number;
+  longitude: number;
+  name: string;
+}
+
 class GoTenna {
   //#region goTenna
   public getApplicationBuildId() {
@@ -247,8 +259,82 @@ class GoTenna {
   }
   //#endregion Command Center
 
-  //#region
-  //#endregion
+  //#region UserDataStore
+  public addGroupGID(groupGID: number) {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'addGroupGID',
+      [groupGID]
+    );
+  }
+
+  public addMulticastGroupGID(groupGID: number) {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'addMulticastGroupGID',
+      [groupGID]
+    );
+  }
+
+  public deleteCurrentUser() {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'deleteCurrentUser',
+      []
+    );
+  }
+
+  public hasValidUser() {
+    return new Promise((resolve, reject) => {
+      cordova.exec(
+        result => {
+          result === 'true' ? resolve(true) : resolve(false);
+        },
+        reject,
+        'GoTenna',
+        'hasValidUser',
+        []
+      );
+    });
+  }
+
+  public getCurrentUser() {
+    return new Promise((resolve: (user: IUser) => void, reject) => {
+      cordova.exec(
+        (result: string) => resolve(JSON.parse(result)),
+        reject,
+        'GoTenna',
+        'getCurrentUser',
+        []
+      );
+    });
+  }
+
+  public setCurrentUser(user: IUser) {
+    const userString = JSON.stringify(user);
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'setCurrentUser',
+      [userString]
+    );
+  }
+  //#endregion UserDataStore
 }
 
 (window as any).gotenna = new GoTenna();

@@ -3,6 +3,7 @@ package com.dansteren.gotenna;
 import com.gotenna.sdk.bluetooth.GTConnectionManager.GTDeviceType;
 import com.gotenna.sdk.exceptions.GTInvalidAppTokenException;
 import com.gotenna.sdk.GoTenna;
+import com.gotenna.sdk.user.User;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -14,6 +15,7 @@ import org.apache.cordova.CordovaWebView;
 import org.apache.cordova.PluginResult;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONException;
 
 public class GoTennaPlugin extends CordovaPlugin {
@@ -174,6 +176,29 @@ public class GoTennaPlugin extends CordovaPlugin {
             return true;
         } else if ("setMessageListener".equals(action)) {
             xgtCommandCenter.setMessageListener(callbackContext);
+            return true;
+        } else if ("addGroupGID".equals(action)) {
+            long groupGID = args.getLong(0);
+            XUserDataStore.addGroupGID(callbackContext, groupGID);
+            return true;
+        } else if ("addMulticastGroupGID".equals(action)) {
+            long groupGID = args.getLong(0);
+            XUserDataStore.addMulticastGroupGID(callbackContext, groupGID);
+            return true;
+        } else if ("deleteCurrentUser".equals(action)) {
+            XUserDataStore.deleteCurrentUser(callbackContext);
+            return true;
+        } else if ("hasValidUser".equals(action)) {
+            XUserDataStore.hasValidUser(callbackContext);
+            return true;
+        } else if ("getCurrentUser".equals(action)) {
+            XUserDataStore.getCurrentUser(callbackContext);
+            return true;
+        } else if ("setCurrentUser".equals(action)) {
+            String userString = args.getString(0);
+            JSONObject userJSON = new JSONObject(userString);
+            User newUser = new User(userJSON);
+            XUserDataStore.setCurrentUser(callbackContext, newUser);
             return true;
         }
         return false; // Returning false results in a "MethodNotFound" error.
