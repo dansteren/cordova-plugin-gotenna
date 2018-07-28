@@ -374,6 +374,44 @@ class GoTenna {
     });
   }
 
+  public isMyGID(gid: number) {
+    return new Promise((resolve, reject) => {
+      cordova.exec(
+        result => {
+          result === 'true' ? resolve(true) : resolve(false);
+        },
+        reject,
+        'GoTenna',
+        'isMyGID',
+        [gid]
+      );
+    });
+  }
+
+  public registerUser(name: string, gid: number) {
+    return new Promise((resolve: (user: IUser) => void, reject) => {
+      cordova.exec(
+        (result: string) => resolve(JSON.parse(result)),
+        reject,
+        'GoTenna',
+        'registerUser',
+        [name, gid]
+      );
+    });
+  }
+
+  public saveCurrentUser() {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'saveCurrentUser',
+      []
+    );
+  }
+
   public setCurrentUser(user: IUser) {
     const userString = JSON.stringify(user);
     cordova.exec(
@@ -384,6 +422,37 @@ class GoTenna {
       'GoTenna',
       'setCurrentUser',
       [userString]
+    );
+  }
+
+  public updateLastConnectedTime() {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'updateLastConnectedTime',
+      []
+    );
+  }
+
+  // TODO: Add support for Position
+  // See https://developer.mozilla.org/en-US/docs/Web/API/Position
+  public updateLastLocation(
+    latitude: number,
+    longitude: number,
+    accuracy: number,
+    timestamp: number
+  ) {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'updateLastLocation',
+      [latitude, longitude, accuracy, timestamp]
     );
   }
   //#endregion UserDataStore

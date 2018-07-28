@@ -68,8 +68,38 @@ public class XUserDataStore {
         }
     }
 
+    public static void isMyGID(CallbackContext callbackContext, long gid) {
+        boolean isMyGID = UserDataStore.getInstance().isMyGID(gid);
+        if (isMyGID) {
+            callbackContext.success("true");
+        } else {
+            callbackContext.success("false");
+        }
+    }
+
+    public static void registerUser(CallbackContext callbackContext, String name, long gid) {
+        User user = UserDataStore.getInstance().registerUser(name, gid);
+        callbackContext.success(user.toJSONObject().toString());
+    }
+
+    public static void saveCurrentUser(CallbackContext callbackContext) {
+        UserDataStore.getInstance().saveCurrentUser();
+        callbackContext.success();
+    }
+
     public static void setCurrentUser(CallbackContext callbackContext, User user) {
         UserDataStore.getInstance().setCurrentUser(user);
+        callbackContext.success();
+    }
+
+    public static void updateLastConnectedTime(CallbackContext callbackContext) {
+        UserDataStore.getInstance().updateLastConnectedTime();
+        callbackContext.success();
+    }
+
+    public static void updateLastLocation(CallbackContext callbackContext, double latitude, double longitude,
+            float accuracy, long timestamp) {
+        UserDataStore.getInstance().updateLastLocation(latitude, longitude, accuracy, timestamp);
         callbackContext.success();
     }
 }

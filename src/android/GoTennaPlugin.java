@@ -210,11 +210,33 @@ public class GoTennaPlugin extends CordovaPlugin {
         } else if ("hasValidUser".equals(action)) {
             XUserDataStore.hasValidUser(callbackContext);
             return true;
+        } else if ("isMyGID".equals(action)) {
+            long gid = args.getLong(0);
+            XUserDataStore.isMyGID(callbackContext, gid);
+            return true;
+        } else if ("registerUser".equals(action)) {
+            String name = args.getString(0);
+            long gid = args.getLong(1);
+            XUserDataStore.registerUser(callbackContext, name, gid);
+            return true;
+        } else if ("saveCurrentUser".equals(action)) {
+            XUserDataStore.saveCurrentUser(callbackContext);
+            return true;
         } else if ("setCurrentUser".equals(action)) {
             String userString = args.getString(0);
             JSONObject userJSON = new JSONObject(userString);
             User newUser = new User(userJSON);
             XUserDataStore.setCurrentUser(callbackContext, newUser);
+            return true;
+        } else if ("updateLastConnectedTime".equals(action)) {
+            XUserDataStore.updateLastConnectedTime(callbackContext);
+            return true;
+        } else if ("updateLastLocation".equals(action)) {
+            double latitude = args.getDouble(0);
+            double longitude = args.getDouble(1);
+            float accuracy = (float) args.getDouble(2);
+            long timestamp = args.getLong(3);
+            XUserDataStore.updateLastLocation(callbackContext, latitude, longitude, accuracy, timestamp);
             return true;
         }
         return false; // Returning false results in a "MethodNotFound" error.
