@@ -188,11 +188,27 @@ public class GoTennaPlugin extends CordovaPlugin {
         } else if ("deleteCurrentUser".equals(action)) {
             XUserDataStore.deleteCurrentUser(callbackContext);
             return true;
-        } else if ("hasValidUser".equals(action)) {
-            XUserDataStore.hasValidUser(callbackContext);
+        } else if ("deleteGroupGID".equals(action)) {
+            long groupGID = args.getLong(0);
+            XUserDataStore.deleteGroupGID(callbackContext, groupGID);
+            return true;
+        } else if ("deleteMulticastGroupGID".equals(action)) {
+            long groupGID = args.getLong(0);
+            XUserDataStore.deleteMulticastGroupGID(callbackContext, groupGID);
             return true;
         } else if ("getCurrentUser".equals(action)) {
             XUserDataStore.getCurrentUser(callbackContext);
+            return true;
+        } else if ("hasGroupGID".equals(action)) {
+            long groupGID = args.getLong(0);
+            XUserDataStore.hasGroupGID(callbackContext, groupGID);
+            return true;
+        } else if ("hasMulticastGroupGID".equals(action)) {
+            long groupGID = args.getLong(0);
+            XUserDataStore.hasMulticastGroupGID(callbackContext, groupGID);
+            return true;
+        } else if ("hasValidUser".equals(action)) {
+            XUserDataStore.hasValidUser(callbackContext);
             return true;
         } else if ("setCurrentUser".equals(action)) {
             String userString = args.getString(0);

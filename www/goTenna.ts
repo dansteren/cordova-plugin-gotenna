@@ -296,18 +296,28 @@ class GoTenna {
     );
   }
 
-  public hasValidUser() {
-    return new Promise((resolve, reject) => {
-      cordova.exec(
-        result => {
-          result === 'true' ? resolve(true) : resolve(false);
-        },
-        reject,
-        'GoTenna',
-        'hasValidUser',
-        []
-      );
-    });
+  public deleteGroupGID(groupGID: number) {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'deleteGroupGID',
+      [groupGID]
+    );
+  }
+
+  public deleteMulticastGroupGID(groupGID: number) {
+    cordova.exec(
+      () => {},
+      error => {
+        throw new Error(error);
+      },
+      'GoTenna',
+      'deleteMulticastGroupGID',
+      [groupGID]
+    );
   }
 
   public getCurrentUser() {
@@ -317,6 +327,48 @@ class GoTenna {
         reject,
         'GoTenna',
         'getCurrentUser',
+        []
+      );
+    });
+  }
+
+  public hasGroupGID(groupGID: number) {
+    return new Promise((resolve, reject) => {
+      cordova.exec(
+        result => {
+          result === 'true' ? resolve(true) : resolve(false);
+        },
+        reject,
+        'GoTenna',
+        'hasGroupGID',
+        [groupGID]
+      );
+    });
+  }
+
+  public hasMulticastGroupGID(groupGID: number) {
+    return new Promise((resolve, reject) => {
+      cordova.exec(
+        result => {
+          result === 'true' ? resolve(true) : resolve(false);
+        },
+        reject,
+        'GoTenna',
+        'hasMulticastGroupGID',
+        [groupGID]
+      );
+    });
+  }
+
+  public hasValidUser() {
+    return new Promise((resolve, reject) => {
+      cordova.exec(
+        result => {
+          result === 'true' ? resolve(true) : resolve(false);
+        },
+        reject,
+        'GoTenna',
+        'hasValidUser',
         []
       );
     });
