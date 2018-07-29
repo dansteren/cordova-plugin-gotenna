@@ -11,6 +11,11 @@ export interface IUserOptions {
 }
 
 export default class User {
+  /**
+   * Helper methods for creating a brand new user object.
+   * @param name The name of the user.
+   * @param gid The goTenna ID of the user.
+   */
   public static createUser(name: string, gid: number) {
     return new User({ name, gid });
   }

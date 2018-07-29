@@ -18,6 +18,10 @@ enum DeviceType {
 }
 
 class GoTenna {
+  public User;
+  constructor() {
+    this.User = User;
+  }
   //#region goTenna
   public getApplicationBuildId() {
     return new Promise((resolve, reject) => {
