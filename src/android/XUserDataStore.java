@@ -53,9 +53,12 @@ public class XUserDataStore {
     }
 
     public static void getCurrentUser(CallbackContext callbackContext) {
-        User currentUser = UserDataStore.getInstance().getCurrentUser();
-        // TODO: Handle non-existant users
-        callbackContext.success(currentUser.toJSONObject().toString());
+        if (UserDataStore.getInstance().hasValidUser()) {
+            User currentUser = UserDataStore.getInstance().getCurrentUser();
+            callbackContext.success(currentUser.toJSONObject().toString());
+        } else {
+            callbackContext.success("");
+        }
     }
 
     public static void hasValidUser(CallbackContext callbackContext) {

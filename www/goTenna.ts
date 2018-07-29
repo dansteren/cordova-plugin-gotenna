@@ -1,3 +1,5 @@
+import User from './User';
+
 enum ConnectionState {
   Connected = 'CONNECTED',
   Disconnected = 'DISCONNECTED',
@@ -13,18 +15,6 @@ enum BluetoothStatus {
 enum DeviceType {
   V1 = 'V1',
   Mesh = 'MESH'
-}
-
-interface IUser {
-  gid: number;
-  kGroupGIDs: number[];
-  kMulticastGroupGIDs: number[];
-  lastConnectedTime: number;
-  latitude: number;
-  locationAccuracy: number;
-  locationTimestamp: number;
-  longitude: number;
-  name: string;
 }
 
 class GoTenna {
@@ -321,9 +311,15 @@ class GoTenna {
   }
 
   public getCurrentUser() {
-    return new Promise((resolve: (user: IUser) => void, reject) => {
+    return new Promise((resolve: (user: User) => void, reject) => {
       cordova.exec(
-        (result: string) => resolve(JSON.parse(result)),
+        (result: string) => {
+          if (result === '') {
+            resolve(undefined);
+          } else {
+            resolve(new User(JSON.parse(result)));
+          }
+        },
         reject,
         'GoTenna',
         'getCurrentUser',
@@ -389,9 +385,9 @@ class GoTenna {
   }
 
   public registerUser(name: string, gid: number) {
-    return new Promise((resolve: (user: IUser) => void, reject) => {
+    return new Promise((resolve: (user: User) => void, reject) => {
       cordova.exec(
-        (result: string) => resolve(JSON.parse(result)),
+        (result: string) => resolve(new User(JSON.parse(result))),
         reject,
         'GoTenna',
         'registerUser',
@@ -412,7 +408,7 @@ class GoTenna {
     );
   }
 
-  public setCurrentUser(user: IUser) {
+  public setCurrentUser(user: User) {
     const userString = JSON.stringify(user);
     cordova.exec(
       () => {},
