@@ -168,6 +168,9 @@ public class GoTennaPlugin extends CordovaPlugin {
             String username = args.getString(1);
             xgtCommandCenter.setGoTennaGID(callbackContext, gid, username);
             return true;
+        } else if ("sendGetSystemInfo".equals(action)) {
+            xgtCommandCenter.sendGetSystemInfo(callbackContext);
+            return true;
         } else if ("sendMessage".equals(action)) {
             String outgoingData = args.getString(0);
             long receiverGID = args.getLong(1);

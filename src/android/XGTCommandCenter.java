@@ -11,6 +11,7 @@ import com.gotenna.sdk.messages.GTLocationRequestOnlyMessageData;
 import com.gotenna.sdk.messages.GTMessageData;
 import com.gotenna.sdk.messages.GTTextOnlyMessageData;
 import com.gotenna.sdk.responses.GTResponse;
+import com.gotenna.sdk.responses.SystemInfoResponseData;
 import com.gotenna.sdk.user.User;
 import com.gotenna.sdk.user.UserDataStore;
 
@@ -31,6 +32,36 @@ public class XGTCommandCenter {
         }, new GTErrorListener() {
             @Override
             public void onError(GTError error) {
+                callbackContext.error(error.toString());
+            }
+        });
+    }
+
+    public void sendGetSystemInfo(final CallbackContext callbackContext) {
+        GTCommandCenter.getInstance().sendGetSystemInfo(new GTCommandCenter.GTSystemInfoResponseListener()
+        {
+            @Override
+            public void onResponse(SystemInfoResponseData systemInfoResponseData)
+            {
+                try {
+                    JSONObject json = new JSONObject();
+                    json.put("batteryLevel", systemInfoResponseData.getBatteryLevel());
+                    json.put("batteryPercentage", systemInfoResponseData.getBatteryLevelAsPercentage());
+                    json.put("dateCreated", systemInfoResponseData.getDateInfoCreated());
+                    json.put("firmwareVersion", systemInfoResponseData.getFirmwareVersion());
+                    json.put("serialNumber", systemInfoResponseData.getGoTennaSerialNumber());
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK, json);
+                    callbackContext.sendPluginResult(pluginResult);
+                } catch (JSONException e) {
+                    PluginResult pluginResult = new PluginResult(PluginResult.Status.ERROR, "JSON execption thrown while parsing message");
+                    callbackContext.sendPluginResult(pluginResult);
+                }
+            }
+        }, new GTErrorListener()
+        {
+            @Override
+            public void onError(GTError error)
+            {
                 callbackContext.error(error.toString());
             }
         });

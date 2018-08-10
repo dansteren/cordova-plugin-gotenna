@@ -1,3 +1,4 @@
+import FirmwareVersion from './FirmwareVersion';
 import User from './User';
 
 enum ConnectionState {
@@ -19,8 +20,10 @@ enum DeviceType {
 
 class GoTenna {
   public User;
+  public FirmwareVersion;
   constructor() {
     this.User = User;
+    this.FirmwareVersion = FirmwareVersion;
   }
   //#region goTenna
   public getApplicationBuildId() {
@@ -230,6 +233,21 @@ class GoTenna {
         gid,
         username
       ]);
+    });
+  }
+  public sendGetSystemInfo() {
+    return new Promise((resolve, reject) => {
+      cordova.exec(
+        result => {
+          result.dateCreated = new Date(result.dateCreated);
+          result.firmwareVersion = new FirmwareVersion(result.firmwareVersion);
+          resolve(result);
+        },
+        reject,
+        'GoTenna',
+        'sendGetSystemInfo',
+        []
+      );
     });
   }
   public sendMessage(
